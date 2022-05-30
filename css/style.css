@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#field {
+  transition: all 1s ease 0s;
+}
+#field td {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgb(141, 96, 96);
+  text-align: center;
+  font-weight: bold;
+  box-sizing: border-box;
+  font-size: 60px;
+  color: rgb(109, 39, 6);
+  user-select: none;
+}
+
+.banner {
+  width: 0px;
+  height: 0px;
+  background-color: moccasin;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(109, 39, 6);
+  box-shadow: 0px 15px 15px rgba(1, 1, 1, 0.2);
+  box-sizing: border-box;
+  transition: all 1s ease 0s;
+}
+
+.unhide {
+  width: 308px;
+  height: 308px;
+  font-size: 48px;
+}
+
+.hide {
+  display: none;
+}
+
+.container{
+    background-color: beige;
+}
