@@ -11,6 +11,7 @@ function start(cells) {
       this.innerHTML = ["X", "O"][i % 2];
       this.style.backgroundColor = "rgb(141, 96, 96)";
       this.style.color = "moccasin";
+      this.style.fontSize = "60px";
       this.removeEventListener("click", step);
 
       if (isVictory(cells)) {
