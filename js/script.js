@@ -1,6 +1,7 @@
 let cells = document.querySelectorAll("#field td");
 let field = document.querySelector("#field");
 let banner = document.querySelector(".banner");
+let container = document.querySelector(".container");
 
 start(cells);
 
@@ -13,19 +14,24 @@ function start(cells) {
       this.style.color = "moccasin";
       this.style.fontSize = "60px";
       this.removeEventListener("click", step);
-
-      if (isVictory(cells)) {
-        banner.innerHTML = `ПОБЕДА! ${
-          this.innerHTML === "X" ? "Крестики" : "Нолики"
-        } победили.`;
-        banner.classList.toggle("unhide");
-        field.classList.toggle("hide");
-      } else if (i === 8) {
-        banner.innerHTML = `НИЧЬЯ! Никто не победил.`;
+      if (isVictory(cells) || i == 8) {
+        if (isVictory(cells)) {
+          banner.innerHTML = `ПОБЕДА! ${
+            this.innerHTML === "X" ? "Крестики" : "Нолики"
+          } победили.`;
           banner.classList.toggle("unhide");
           field.classList.toggle("hide");
+        } else if (i === 8) {
+          banner.innerHTML = `НИЧЬЯ! Никто не победил.`;
+          banner.classList.toggle("unhide");
+          field.classList.toggle("hide");
+        }
+        let restart = document.createElement("input");
+        restart.className = "restart-btn";
+        restart.type = "button";
+        restart.value = "Restart";
+        banner.appendChild(restart);
       }
-
       i++;
     });
   }
