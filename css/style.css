@@ -24,10 +24,10 @@
 }
 
 .banner {
-  width: 0px;
-  height: 0px;
+  width: 308px;
+  height: 308px;
   background-color: moccasin;
-  font-size: 12px;
+  font-size: 38px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -37,20 +37,14 @@
   color: rgb(109, 39, 6);
   box-shadow: 0px 15px 15px rgba(1, 1, 1, 0.2);
   box-sizing: border-box;
-  transition: all 1s ease 0s;
-}
-
-.unhide {
-  width: 308px;
-  height: 308px;
-  font-size: 48px;
+  transition: all 0.5s ease 0s;
 }
 
 .hide {
   display: none;
 }
 
-.restart-btn {
+#restart-btn {
   color: rgb(109, 39, 6);
   background-color: rgb(228, 198, 147);
   font-size: 18px;
@@ -67,7 +61,7 @@
   padding: 5px 40px;
   transition: all 0.3s ease 0s;
 }
-.restart-btn:hover {
+#restart-btn:hover {
   background-color: rgb(156, 57, 11);
   color: moccasin;
 }
