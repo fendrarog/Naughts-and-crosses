@@ -9,7 +9,7 @@ let isStarted = false;
 const isDraw = (i) => i === 8;
 
 for (let radio of radios) {
-  radio.addEventListener("click", function (e) {
+  radio.addEventListener("change", function (e) {
     if (isStarted) {
       location.reload();
     }
