@@ -40,7 +40,7 @@ function startWithAi(cells) {
         debugger;
       }
 
-      /*       const ai = (i) => {
+      /* const ai = (i) => {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(++i);
@@ -103,6 +103,19 @@ function cellAI(cells) {
     [2, 4, 6],
   ];
 
+  let winComb = winLines.reduce((acc, curr) => {
+    debugger;
+
+    if (
+      curr.filter((el) => cells[el].innerHTML === "O").length === 2 &&
+      curr.some((el) => cells[el].innerHTML === "")
+    ) {
+      acc = curr.filter((el) => cells[el].innerHTML === "")[0];
+      debugger;
+    }
+    return acc;
+  }, 0);
+
   let breakComb = winLines.reduce((acc, curr) => {
     debugger;
 
@@ -115,6 +128,10 @@ function cellAI(cells) {
     }
     return acc;
   }, 0);
+
+  if (winComb) {
+    return winComb;
+  }
 
   if (breakComb) {
     return breakComb;
