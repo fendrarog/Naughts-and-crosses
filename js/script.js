@@ -58,7 +58,7 @@ function startWithAi(cells) {
       }
 
       const ai = async (fn, ...args) => {
-        await timeout(1000);
+        await timeout(2000);
         fn(...args);
         field.style.pointerEvents = "auto";
       };
