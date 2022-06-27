@@ -8,6 +8,24 @@ let radios = document.querySelectorAll('input[type="radio"]');
 let isStarted = false;
 const isDraw = (i) => i === 8;
 
+let winLines = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+let winLinesConcat = (...arrs) => {
+  let res = arrs[0].concat(...arrs);
+  return res.slice(arrs[0].length);
+};
+
+console.log(winLinesConcat(...winLines));
+
 for (let radio of radios) {
   radio.addEventListener("change", function (e) {
     if (isStarted) {
@@ -22,14 +40,10 @@ for (let radio of radios) {
   });
 }
 
-console.log();
-
 function startWithAi(cells) {
   let i = 0;
   for (let cell of cells) {
     cell.addEventListener("click", function step() {
-      field.style.pointerEvents = "none";
-
       this.innerHTML = ["X", "O"][i % 2];
       this.style.backgroundColor = "rgb(141, 96, 96)";
       this.style.color = "moccasin";
@@ -37,7 +51,6 @@ function startWithAi(cells) {
       this.removeEventListener("click", step);
       if (isVictory(cells) || isDraw(i)) {
         setTimeout(check, 1000, cells, i);
-        debugger;
       }
 
       /* const ai = (i) => {
@@ -58,6 +71,7 @@ function startWithAi(cells) {
       }
 
       const ai = async (fn, ...args) => {
+        field.style.pointerEvents = "none";
         await timeout(2000);
         fn(...args);
         field.style.pointerEvents = "auto";
@@ -74,7 +88,6 @@ function stepAI(cells, i, step) {
   i++;
   if (!isVictory(cells)) {
     const clickAI = cellAI(cells);
-    debugger;
     actionAI(cells, clickAI, i, step);
     if (isVictory(cells) || isDraw(i)) {
       setTimeout(check, 1000, cells, i);
@@ -104,27 +117,31 @@ function cellAI(cells) {
   ];
 
   let winComb = winLines.reduce((acc, curr) => {
-    debugger;
-
     if (
       curr.filter((el) => cells[el].innerHTML === "O").length === 2 &&
       curr.some((el) => cells[el].innerHTML === "")
     ) {
       acc = curr.filter((el) => cells[el].innerHTML === "")[0];
-      debugger;
     }
     return acc;
   }, 0);
 
   let breakComb = winLines.reduce((acc, curr) => {
-    debugger;
-
     if (
       curr.filter((el) => cells[el].innerHTML === "X").length === 2 &&
       curr.some((el) => cells[el].innerHTML === "")
     ) {
       acc = curr.filter((el) => cells[el].innerHTML === "")[0];
-      debugger;
+    }
+    return acc;
+  }, 0);
+
+  let preComb = winLines.reduce((acc, curr) => {
+    if (
+      curr.some((el) => cells[el].innerHTML === "O") &&
+      !curr.some((el) => cells[el].innerHTML === "X")
+    ) {
+      acc = curr.filter((el) => cells[el].innerHTML === "")[0];
     }
     return acc;
   }, 0);
@@ -137,11 +154,49 @@ function cellAI(cells) {
     return breakComb;
   }
 
+  if (preComb) {
+    return preComb;
+  }
+
+  let corners = [0, 2, 6, 8];
+  const cornerComb = (cells) => {
+    let hasXInCorner = corners.some(
+      (corner) => cells[corner].innerHTML === "X"
+    );
+    let cellsWithoutCorners = [1, 3, 4, 5, 7];
+    let isCellsWithoutCornersClear = cellsWithoutCorners.every(
+      (el) => cells[el].innerHTML === ""
+    );
+
+    if (hasXInCorner && isCellsWithoutCornersClear) {
+      let firstCornerX = corners.reduce((acc, curr) => {
+        debugger;
+        if (cells[curr].innerHTML === "X") {
+          acc = curr;
+        }
+        return acc;
+      }, 0);
+      debugger;
+      return firstCornerX;
+    }
+    return -1;
+  };
+
+  if (cornerComb(cells) >= 0) {
+    let res = cornerComb(cells);
+    debugger;
+    if (res === 0 || res === 8) {
+      return [0, 8].filter((el) => cells[el].innerHTML === "")[0];
+    }
+    if (res === 2 || res === 6) {
+      return [2, 6].filter((el) => cells[el].innerHTML === "")[0];
+    }
+  }
+
   if (cells[4].innerHTML === "") {
     return 4;
   }
 
-  let corners = [0, 2, 6, 8];
   let haveEmptyCorner = corners.some(
     (corner) => cells[corner].innerHTML === ""
   );
