@@ -95,15 +95,6 @@ function stepAI(cells, i, step) {
   }
 }
 
-/* function cellAI(cells) {
-  let click = Math.floor(Math.random() * 9);
-  if (cells[click].innerHTML === "") {
-    return click;
-  } else {
-    return cellAI(cells);
-  }
-} */
-
 function cellAI(cells) {
   let winLines = [
     [0, 1, 2],
@@ -207,6 +198,18 @@ function cellAI(cells) {
     );
     return emptyCorners[0];
   }
+
+  function randomClick(cells) {
+    let click = Math.floor(Math.random() * 9);
+    if (cells[click].innerHTML === "") {
+      debugger;
+      return click;
+    } else {
+      return randomClick(cells);
+    }
+  }
+
+  return randomClick(cells);
 }
 
 function actionAI(cells, clickAI, i, step) {
